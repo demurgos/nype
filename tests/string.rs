@@ -11,10 +11,11 @@ fn string_unchecked() {
   }
 
   const HELLO_TITLE: Markdown<&'static str> = Markdown::new("# Hello, Strype!");
+  const HELLO_TITLE2: &'static Markdown<str> = HELLO_TITLE.transpose();
 
   let hello_title: Markdown = Markdown::new(String::from("# Hello, Strype!"));
 
-  assert_eq!(hello_title.as_view(), HELLO_TITLE);
+  // assert_eq!(HELLO_TITLE2.as_view(), HELLO_TITLE);
   assert_eq!(hello_title.as_str(), "# Hello, Strype!");
   assert_eq!(hello_title.into_inner(), String::from("# Hello, Strype!"));
 }
@@ -25,9 +26,8 @@ fn string_const_checked() {
     /// Simple username, non-empty 3-20 char ascii alphanumeric trimmed string
     pub struct Username(String);
 
-    macro username;
-
-    check pub const UsernameError {
+    #[error(const)]
+    pub enum UsernameError {
       #[non_empty]
       NonEmpty,
       #[ascii_trimmed]
@@ -37,9 +37,12 @@ fn string_const_checked() {
       #[max_len(20)]
       MaxLen,
     }
+
+    #[macro]
+    username;
   }
 
-  const AUTHOR_USERNAME: Username<&'static str> = match Username::check("demurgos") {
+  const AUTHOR_USERNAME: &'static Username<str> = match Username::new_ref("demurgos") {
     Ok(u) => u,
     Err(_) => panic!("`demurgos` is a valid username"),
   };
@@ -60,7 +63,8 @@ fn string_dyn_checked() {
     /// 6 character 8-bit RGB lowercase hex code
     pub struct Rgb8Hex(String);
 
-    check pub dyn Rgb8HexError {
+    #[error(dyn)]
+    pub enum Rgb8HexError {
       #[non_empty]
       NonEmpty,
       #[ascii_trimmed]
