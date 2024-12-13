@@ -10,7 +10,9 @@ fn string_unchecked() {
       pub struct Markdown(String);
   }
 
+  #[allow(dead_code, reason = "the goal is to check compilation in a const context")]
   const HELLO_TITLE: Markdown<&'static str> = Markdown::new("# Hello, Strype!");
+  #[allow(dead_code, reason = "the goal is to check compilation in a const context")]
   const HELLO_TITLE2: &'static Markdown<str> = HELLO_TITLE.transpose();
 
   let hello_title: Markdown = Markdown::new(String::from("# Hello, Strype!"));
