@@ -12,6 +12,8 @@ license = "MIT"
 # Rust 1.80 is the minimum supported version, to get `LazyLock` from the
 # standard library. The 1-year support policy takes effect following Rust 1.80.
 rust-version = "1.80.0"
+description = "Newtype helper macros for Rust"
+repository = "https://github.com/demurgos/nype"
 
 [dependencies]
 regex = { version = "1.11.1", default-features = false, optional = true }
