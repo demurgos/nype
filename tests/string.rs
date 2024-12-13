@@ -1,4 +1,4 @@
-use strype::{define_string_type};
+use nype::{define_string_type};
 
 #[test]
 fn string_unchecked() {

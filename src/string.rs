@@ -1,9 +1,9 @@
-/// Define a new strongly typed string.
+/// Define a newtype wrapper for a string.
 ///
 /// # Minimal example
 ///
 /// ```
-/// use strype::define_string_type;
+/// use nype::define_string_type;
 ///
 /// define_string_type!{
 ///   pub struct BlogTitle(String);
@@ -15,7 +15,7 @@
 /// # Full example
 ///
 /// ```
-/// use strype::define_string_type;
+/// use nype::define_string_type;
 ///
 /// define_string_type!{
 ///   pub struct BlogTitle(String);
@@ -487,11 +487,3 @@ macro_rules! declare_new_string {
     }
   };
 }
-//
-//
-// declare_new_string! {
-//   pub struct UserDisplayName(String);
-//   pub type ParseError = UserDisplayNameParseError;
-//   const PATTERN = r"^[\p{Letter}_][\p{Letter}_ ()0-9]{0,62}[\p{Letter}_()0-9]$";
-//   const SQL_NAME = "user_display_name";
-// }

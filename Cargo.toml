@@ -1,10 +1,29 @@
 [package]
-name = "strype"
+name = "nype"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+# Minimum Supported Rust Version (MSRV) policy: All Rust versions less than 1
+# year old are fully supported. Older versions are supported on a best-effort
+# basis. Increasing the MSRV is considered a semver-minor change.
+# If feature flags are enabled, the effective MSRV also depends on the enabled
+# dependencies.
+#
+# Rust 1.80 is the minimum supported version, to get `LazyLock` from the
+# standard library. The 1-year support policy takes effect following Rust 1.80.
 rust-version = "1.80.0"
 
 [dependencies]
-regex = "1.10.6"
-serde = "1.0.209"
-once_cell = "1.19.0"
+regex = { version = "1.11.1", default-features = false, optional = true }
+serde = { version = "1.0.216", default-features = false, optional = true }
+
+[dev-dependencies]
+nype = { path = "./", features = ["regex", "serde", "std"] }
+
+[features]
+# Allow string checks based on regular expessions
+regex = ["dep:regex"]
+# Implement serialization using serde
+serde = ["dep:serde"]
+# Allow usage of the `std` module from the standard library
+std = []
